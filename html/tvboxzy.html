@@ -48,31 +48,110 @@
             z-index: 1;
         }
 
-        /* 文章区块 */
-        .article-header {
-            margin-bottom: 15px;
+        /* 联系方式区块 */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+
+            flex: 1;
         }
 
-        .article-title {
+        header {
+            text-align: center;
+            padding: 0px 0;
+        }
+
+        h1 {
             color: #2c3e50;
-            font-size: 1.8em;
-            margin-bottom: 10px;
+            font-size: 2.5rem;
+            margin-bottom: 30px;
         }
 
-        .meta-info {
+        /* 圆形联系方式样式 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 30px;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .contact-card {
+            width: 120px;
+            height: 120px;
+            border: 2px solid #e0e0e0;
+            border-radius: 50%;
+            background: white;
             display: flex;
+            flex-direction: column;
+            justify-content: center;
             align-items: center;
-            gap: 15px;
-            color: #95a5a6;
+            padding: 15px;
+            margin: 0 auto;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        .meta-info i {
-            margin-right: 5px;
+        .contact-card:hover {
+            border-color: #3498db;
+            transform: scale(1.05) translateY(-5px);
+            box-shadow: 0 5px 15px rgba(52, 152, 219, 0.1);
         }
 
-        .article-content {
-            color: #34495e;
-            line-height: 1.8;
+        .contact-title {
+            color: #2c3e50;
+            font-size: 1rem;
+            margin: 5px 0;
+            text-align: center;
+        }
+
+        .contact-desc {
+            color: #7f8c8d;
+            font-size: 0.8rem;
+            line-height: 1.2;
+        }
+
+        /* 弹窗样式 */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            z-index: 999;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .modal-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            text-align: center;
+            position: relative;
+            animation: zoomIn 0.3s;
+        }
+
+        @keyframes zoomIn {
+            from { transform: scale(0.9); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
+        .modal img {
+            width: 200px;
+            height: 200px;
+            margin: 15px 0;
+        }
+
+        .modal-close {
+            position: absolute;
+            top: 10px;
+            right: 15px;
+            font-size: 1.5rem;
+            color: #999;
+            cursor: pointer;
         }
         /* 功能区 */
         .resource-list {
@@ -189,7 +268,24 @@
             .resource-item {
                 padding: 15px;
             }
-        }			
+        }	
+            h1 {
+                font-size: 2rem;
+            }
+            
+            .contact-card {
+                width: 100px;
+                height: 100px;
+            }
+            
+            .contact-title {
+                font-size: 0.9rem;
+            }
+            
+            .modal img {
+                width: 180px;
+                height: 180px;
+            }		
         }
     </style>
     <!-- Font Awesome图标 -->
@@ -203,35 +299,68 @@
         </div>
     </div>
 
-    <!-- 文章区块 -->
-    <div class="section">
-        <div class="article-header">
-            <h2 class="article-title">📢TVBOX：使用教程</h2>
-            <div class="meta-info">
-                <span><i class="fas fa-user"></i>横牫</span>
-                <span><i class="fas fa-clock"></i>2025-02-25</span>
+    <!-- 联系方式 -->
+    <div class="container">
+        <header>
+            <h1>联系方式</h1>
+            <div class="contact-grid">
+                <!-- GitHub 卡片 -->
+                <a href="https://github.com/zhijiantv" class="contact-card" target="_blank">
+                    <div class="contact-title">GitHub</div>
+                    <div class="contact-desc">开源项目</div>
+                </a>
+
+                <!-- QQ频道 卡片 -->
+                <div class="contact-card" onclick="showModal('qqModal')">
+                    <div class="contact-title">QQ频道</div>
+                    <div class="contact-desc">扫码加入</div>
+                </div>
+
+                <!-- 微信公众号 卡片 -->
+                <div class="contact-card" onclick="showModal('gzhModal')">
+                    <div class="contact-title">公众号</div>
+                    <div class="contact-desc">扫码加入</div>
+                </div>
+
+                <!-- 微信打赏 卡片 -->
+                <div class="contact-card" onclick="showModal('wechatModal')">
+				<div class="contact-title">微信打赏</div>
+                    <div class="contact-desc">感谢支持</div>
+                </div>
             </div>
+        </header>
+    </div>	
+
+    <!-- QQ弹窗 -->
+    <div id="qqModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal(event)">&times;</span>
+            <h3>QQ频道二维码</h3>
+            <img src="assets/images/logos/qqpd.png" alt="QQ频道二维码">
+            <p>扫码加入我们的官方频道</p>
         </div>
-        <p class="article-content">
-		<p><strong>第一步：</strong>⚠️官方网盘用的是夸克网盘，所以需要安装夸克才能下载⚠
-		️<br>
-		<br>①首先：保证手机上有影视仓、OK影视等TVBOX软件
-		<a href="https://zhijiantv.netlify.app/html/tvboxxz" class="split-link">TVBOX下载：点击下载</a>
-		<br>
-		<br>②其次：复制TVBOX接口，方便下面的步骤
-		<a href="https://zhijiantv.netlify.app/html/tvboxxz" class="split-link">TVBOX接口：点击复制</a>
-		</p>
-<br>
-<br>
-<p><strong>影视仓：</strong><br>打开影视仓，主页- 右上角- 【+】<br>在弹窗的右上角【添加】填写仓库名，输入复制好的接口，点击确认</p>
-<br>
-<br>
-<p><strong>OK影视：</strong><br>打开OK影视，设置- 最上方- 【点播】<br>在弹窗的中，输入复制好的接口，点击确定</p>
-<br>
-<br>
-<p>😘😘😘<br>其他TVBOX盒子的添加方式相似！<br>有问题请留言！<br>最新网址：https://zhijiantv.netlify.app/</p>       
-        </p>
     </div>
+
+    <!-- 公众号弹窗 -->
+    <div id="gzhModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal(event)">&times;</span>
+            <h3>公众号二维码</h3>
+            <img src="assets/images/logos/weixin.png" alt="公众号二维码">
+            <p>扫码加入我们的微信公众号</p>
+        </div>
+    </div>
+
+    <!-- 微信弹窗 -->
+    <div id="wechatModal" class="modal" onclick="closeModal(event)">
+        <div class="modal-content">
+            <span class="modal-close" onclick="closeModal(event)">&times;</span>
+            <h3>微信打赏支持</h3>
+            <img src="assets/images/logos/wxds.png" alt="微信收款码">
+            <p>感谢您的支持与鼓励</p>
+        </div>
+    </div>
+
     <!-- 功能分布 -->
     <div class="section">	
         <div class="resource-list">
@@ -261,6 +390,26 @@
     <footer>
         <p>© 2025 <a href="https://zhijiantv.netlify.app/" class="resource-texe">指尖看世界</a> 低调使用</p>
     </footer>
+
+    <script>
+        // 显示弹窗
+        function showModal(modalId) {
+            document.getElementById(modalId).style.display = 'flex';
+        }
+
+        // 关闭弹窗
+        function closeModal(event) {
+            event.stopPropagation();
+            document.querySelectorAll('.modal').forEach(modal => {
+                modal.style.display = 'none';
+            });
+        }
+
+        // ESC键关闭
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') closeModal(e);
+        });
+    </script>
 
     <script>
         // 留言功能实现
