@@ -1,38 +1,76 @@
-// 系统配置
+
+// ================= 系统配置 =================
 const CONFIG = {
     VALID_CODE: '2024SOFT',
     EXPIRE_HOURS: 24,
-    STORAGE_KEY: 'auth_expires',
-    FEEDBACK_EMAIL: 'support@example.com' // 修改为实际邮箱
+    STORAGE_KEY: 'auth_expires'
 };
 
-// 初始化事件监听
-function initEventListeners() {
-    // 链接点击处理
-    document.querySelectorAll('.hidden-link').forEach(link => {
-        link.addEventListener('click', handleLinkClick);
-    });
+// ================= 全局变量 =================
+let pendingAction = null;
 
-    // 复制按钮处理
-    document.querySelectorAll('.copy-btn').forEach(btn => {
-        btn.addEventListener('click', handleCopyClick);
-    });
+// ================= 反馈系统 =================
+function initFeedback() {
+    const feedbackBtn = document.querySelector('.feedback-btn');
+    const feedbackModal = document.getElementById('feedbackModal');
+    const feedbackOverlay = document.getElementById('feedbackOverlay');
 
-    // 搜索功能
-    document.querySelector('.search-box').addEventListener('input', handleSearch);
+    const toggleFeedback = () => {
+        const isVisible = feedbackModal.style.display === 'block';
+        feedbackModal.style.display = isVisible ? 'none' : 'block';
+        feedbackOverlay.style.display = isVisible ? 'none' : 'block';
+    };
 
-    // 反馈系统
-    document.querySelector('.feedback-btn').addEventListener('click', toggleFeedback);
-    document.querySelector('.feedback-close').addEventListener('click', toggleFeedback);
-    document.getElementById('feedbackForm').addEventListener('submit', handleFeedbackSubmit);
-
-    // 激活码弹窗
-    document.querySelector('.auth-confirm').addEventListener('click', checkAuth);
-    document.querySelector('.auth-cancel').addEventListener('click', closeAuthModal);
-    document.getElementById('authCode').addEventListener('keypress', handleKeyPress);
+    feedbackBtn.addEventListener('click', toggleFeedback);
+    feedbackOverlay.addEventListener('click', toggleFeedback);
 }
 
-// 检查授权状态
+// ================= 激活码系统 =================
+function initAuthSystem() {
+    const authModal = document.getElementById('authModal');
+    const authOverlay = document.getElementById('authOverlay');
+    const authConfirm = document.querySelector('.auth-confirm');
+    const authCancel = document.querySelector('.auth-cancel');
+
+    // 显示激活码弹窗（改为全局可用）
+    window.showAuthModal = function(callback) {
+        pendingAction = callback;
+        authModal.style.display = 'block';
+        authOverlay.style.display = 'block';
+        document.getElementById('authCode').focus();
+    }
+
+    // 关闭弹窗
+    function closeAuthModal() {
+        authModal.style.display = 'none';
+        authOverlay.style.display = 'none';
+        pendingAction = null;
+    }
+
+    // 验证激活码
+    function checkAuth() {
+        const inputCode = document.getElementById('authCode').value.trim();
+        if (inputCode === CONFIG.VALID_CODE) {
+            const expires = Date.now() + CONFIG.EXPIRE_HOURS * 3600000;
+            localStorage.setItem(CONFIG.STORAGE_KEY, expires);
+            closeAuthModal();
+            if (pendingAction) pendingAction();
+            startExpireTimer(expires);
+        } else {
+            alert('激活码错误，请重新输入');
+            document.getElementById('authCode').value = '';
+        }
+    }
+
+    // 绑定事件
+    authConfirm.addEventListener('click', checkAuth);
+    authCancel.addEventListener('click', closeAuthModal);
+    document.getElementById('authCode').addEventListener('keypress', (e) => {
+        if (e.key === 'Enter') checkAuth();
+    });
+}
+
+// ================= 通用功能 =================
 function checkAuthStatus() {
     try {
         const expires = localStorage.getItem(CONFIG.STORAGE_KEY);
@@ -42,23 +80,47 @@ function checkAuthStatus() {
     }
 }
 
-// 处理链接点击
-function handleLinkClick(e) {
-    if(checkAuthStatus()) {
-        window.open(this.href, '_blank');
-        return;
-    }
-    e.preventDefault();
-    showAuthModal(() => window.open(this.href, '_blank'));
+function startExpireTimer(expires) {
+    const timer = setInterval(() => {
+        if (Date.now() > expires) {
+            clearInterval(timer);
+            localStorage.removeItem(CONFIG.STORAGE_KEY);
+            alert('激活状态已过期，请重新验证');
+        }
+    }, 60000);
 }
 
-// 处理复制点击
-function handleCopyClick() {
-    if(checkAuthStatus()) {
-        performCopy(this);
-        return;
-    }
-    showAuthModal(() => performCopy(this));
+function initEvents() {
+    // 链接点击处理（修复事件绑定）
+    document.querySelectorAll('.hidden-link').forEach(link => {
+        link.addEventListener('click', function(e) {
+            if (checkAuthStatus()) {
+                window.open(this.href, '_blank');
+                return;
+            }
+            e.preventDefault();
+            window.showAuthModal(() => window.open(this.href, '_blank'));
+        });
+    });
+
+    // 复制按钮处理（修复事件绑定）
+    document.querySelectorAll('.copy-btn').forEach(btn => {
+        btn.addEventListener('click', function() {
+            if (checkAuthStatus()) {
+                performCopy(this);
+                return;
+            }
+            window.showAuthModal(() => performCopy(this));
+        });
+    });
+
+    // 搜索功能
+    document.querySelector('.search-box').addEventListener('input', function(e) {
+        const term = e.target.value.toLowerCase();
+        document.querySelectorAll('.resource-card').forEach(card => {
+            card.style.display = card.textContent.toLowerCase().includes(term) ? 'block' : 'none';
+        });
+    });
 }
 
 // 执行复制操作
@@ -74,108 +136,23 @@ function performCopy(button) {
     }).catch(() => alert('复制失败，请手动选择链接'));
 }
 
-// 激活码验证流程
-let pendingAction = null;
-
-function showAuthModal(callback) {
-    pendingAction = callback;
-    document.getElementById('authOverlay').style.display = 'block';
-    document.getElementById('authModal').style.display = 'block';
-    document.getElementById('authCode').focus();
-}
-
-function closeAuthModal() {
-    document.getElementById('authOverlay').style.display = 'none';
-    document.getElementById('authModal').style.display = 'none';
-    pendingAction = null;
-}
-
-function checkAuth() {
-    const inputCode = document.getElementById('authCode').value.trim();
-    
-    if(inputCode === CONFIG.VALID_CODE) {
-        const expires = Date.now() + CONFIG.EXPIRE_HOURS * 3600000;
-        localStorage.setItem(CONFIG.STORAGE_KEY, expires);
-        closeAuthModal();
-        pendingAction?.();
-        startExpireTimer(expires);
-    } else {
-        alert('激活码错误，请重新输入');
-        document.getElementById('authCode').value = '';
-        document.getElementById('authCode').focus();
-    }
-}
-
-// 过期计时器
-function startExpireTimer(expires) {
-    const timer = setInterval(() => {
-        if(Date.now() > expires) {
-            clearInterval(timer);
-            localStorage.removeItem(CONFIG.STORAGE_KEY);
-            alert('激活状态已过期，请重新验证');
-        }
-    }, 60000);
-}
-
-// 搜索功能
-function handleSearch(e) {
-    const term = e.target.value.toLowerCase();
-    document.querySelectorAll('.resource-card').forEach(card => {
-        card.style.display = card.textContent.toLowerCase().includes(term) ? 'block' : 'none';
-    });
-}
-
-// 反馈系统
-function toggleFeedback() {
-    const container = document.getElementById('feedback-container');
-    container.style.display = container.style.display === 'block' ? 'none' : 'block';
-}
-
-function handleFeedbackSubmit(e) {
-    e.preventDefault();
-    
-    const subject = document.getElementById('feedbackSubject').value;
-    const content = document.getElementById('feedbackContent').value;
-    const email = document.getElementById('feedbackEmail').value;
-    
-    const mailtoLink = `mailto:${CONFIG.FEEDBACK_EMAIL}?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(
-        `反馈内容：\n${content}\n\n联系方式：${email || '未提供'}`
-    )}`;
-    
-    window.location.href = mailtoLink;
-    toggleFeedback();
-    showToast('反馈已提交，请通过邮件客户端发送');
-}
-
-// Toast提示
-function showToast(message, duration = 2000) {
-    const toast = document.getElementById('toast');
-    toast.textContent = message;
-    toast.style.display = 'block';
-    setTimeout(() => {
-        toast.style.display = 'none';
-    }, duration);
-}
-
-// 通用事件处理
-function handleKeyPress(e) {
-    if(e.key === 'Enter') checkAuth();
-}
-
-// 初始化系统
+// ================= 初始化 =================
 window.addEventListener('load', () => {
-    initEventListeners();
-    if(checkAuthStatus()) {
+    initFeedback();
+    initAuthSystem();
+    initEvents();
+
+    // 初始化过期检查
+    if (checkAuthStatus()) {
         const expires = parseInt(localStorage.getItem(CONFIG.STORAGE_KEY));
         startExpireTimer(expires);
     }
-    
-    // 24小时删除提醒
+
+    // 24小时数据清理提醒
     setTimeout(() => {
-        if(confirm('根据使用协议，资源需在24小时内删除，是否立即清除本地数据？')) {
+        if (confirm('根据使用协议，资源需在24小时内删除，是否立即清除本地数据？')) {
             localStorage.clear();
             sessionStorage.clear();
-            document.cookie = "token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
         }
     }, 86400000);
 });
