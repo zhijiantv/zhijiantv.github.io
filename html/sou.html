@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>软件资源中心 | 指尖看世界</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>📦 指尖软件资源中心</h1>
+            <input type="text" class="search-box" placeholder="搜索软件资源...">
+        </header>
+
+        <div class="legal-notice">
+            <p>⚠️ 特别声明：本网站资源采集于互联网，仅用于个人技术研究与学习交流，请于下载后24小时内删除。所有资源版权归原作者或版权方所有，本站不承担任何法律责任。若侵犯到您的权益，请联系我们进行删除处理。</p>
+        </div>
+
+
+        <div class="resource-grid">
+            <!-- 示例资源卡片 1 -->
+            <div class="resource-card">
+                <h3 class="resource-title">7-Zip</h3>
+                <p class="resource-description">免费开源的压缩文件管理工具，支持多种格式。</p>
+                <div class="link-box">
+                    <a href="https://www.7-zip.org/" class="hidden-link" target="_blank" rel="nofollow">点击获取下载通道</a>
+                    <button class="copy-btn">复制</button>
+                </div>
+            </div>
+
+            <!-- 示例资源卡片 2 -->
+            <div class="resource-card">
+                <h3 class="resource-title">VSCode</h3>
+                <p class="resource-description">微软推出的轻量级代码编辑器，支持多种编程语言。</p>
+                <div class="link-box">
+                    <a href="https://code.visualstudio.com/" class="hidden-link" target="_blank" rel="nofollow">官方下载直达链接</a>
+                    <button class="copy-btn">复制</button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <div class="copyright">
+        © 2025 指尖看世界. All Rights Reserved
+    </div>
+
+    <!-- 反馈按钮 -->
+    <div class="feedback-btn">
+        <span>💬 用户反馈</span>
+    </div>
+
+    <!-- 反馈表单容器 -->
+    <div id="feedback-container">
+        <button class="feedback-close">×</button>
+        <form class="feedback-form" id="feedbackForm">
+            <div class="form-group">
+                <label for="feedbackSubject">主题：</label>
+                <input 
+                    type="text" 
+                    id="feedbackSubject" 
+                    class="form-input"
+                    placeholder="请输入反馈主题"
+                    required
+                >
+            </div>
+            <div class="form-group">
+                <label for="feedbackContent">内容：</label>
+                <textarea 
+                    id="feedbackContent" 
+                    class="form-input form-textarea"
+                    placeholder="请详细描述您的问题或建议"
+                    required
+                ></textarea>
+            </div>
+            <div class="form-group">
+                <label for="feedbackEmail">联系方式（可选）：</label>
+                <input 
+                    type="email" 
+                    id="feedbackEmail" 
+                    class="form-input"
+                    placeholder="请输入邮箱地址"
+                >
+            </div>
+            <button type="submit" class="form-submit">发送反馈</button>
+        </form>
+    </div>
+
+    <!-- 授权验证相关元素 -->
+    <div class="auth-overlay" id="authOverlay"></div>
+    <div class="auth-modal" id="authModal">
+        <div class="auth-header">🔑 微信小程序：指尖看工具 获取</div>
+        <input type="text" class="auth-input" id="authCode" placeholder="请输入激活码">
+        <div class="auth-buttons">
+            <button class="auth-btn auth-confirm">确认</button>
+            <button class="auth-btn auth-cancel">取消</button>
+        </div>
+    </div>
+
+    <!-- Toast提示 -->
+    <div class="toast" id="toast"></div>
+
+    <script src="js/script.js" defer></script>
+</body>
+</html>
