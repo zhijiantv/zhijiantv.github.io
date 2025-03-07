@@ -1,7 +1,7 @@
 
 // ================= 系统配置 =================
 const CONFIG = {
-    VALID_CODE: '2024SOFT',
+    VALID_CODE: 'zhijiantv',
     EXPIRE_HOURS: 24,
     STORAGE_KEY: 'auth_expires'
 };
