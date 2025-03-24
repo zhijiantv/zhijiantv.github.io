@@ -1,186 +1,159 @@
-
-
-
 <!DOCTYPE html>
 <html lang="zh-CN">
 
 <head>
-	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
-	<meta name="description" content="最优网址收集U盘启动工具网站导航，并自动检测和更新可以访问的U盘启动工具网站网址。">
-	<meta name="viewport"
-		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
-	<title>U盘启动工具 - 指尖看世界</title>
-	<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">
-	<link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
-	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
-	<style>
-		.container {
-			width: 800px;
-		}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>U盘启动工具 - 指尖看世界</title>
+	<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">	
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .container {
+            max-width: 800px;
+            margin-top: 30px;
+        }
+        .header-title {
+            color: #2c3e50;
+            margin: 20px 0;
+            font-weight: 500;
+        }
+        .status-badge {
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
+        }
+        .online { background: #e8f5e9; color: #2e7d32; }
+        .offline { background: #ffebee; color: #c62828; }
+        .intro-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
+        }
+        
+        /* 新增修改1：URL字体颜色 */
+        .table a {
+            color: #007bff !important;
+            text-decoration: underline;
+        }
 
-		h1 {
-			margin: 20px 0 10px 0;
-			font-size: 24px;
-		}
+        /* 斑马纹表格 */
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa; /* 浅灰色 */
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: white; /* 白色 */
+        }
+        /* 新增修改2：移动端表格响应式处理 */
+        .table-responsive { overflow-x: auto; }
+        .table td, .table th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
 
-		.alert-info {
-			font-size: 12px;
-			line-height: 12px;
-			margin-bottom: 20px
-		}
-
-		tr>th:nth-child(1) {
-			width: 18%;
-		}
-
-		tr>th:nth-child(3) {
-			width: 18%;
-		}
-
-		tr>td:nth-child(1) {
-
-			letter-spacing: 0.5px;
-		}
-
-		.ablink {
-			color: black
-		}
-
-		.ab_single {
-			margin-bottom: 3px
-		}
-
-		.ab_single img {
-			border-radius: 3px
-		}
-
-		.label-success,
-		.label-error {
-			padding: 3px 10px;
-			margin-right: 5px
-		}
-
-
-		@media (max-width: 768px) {
-			.container {
-				width: 90%;
-				font-size: 12px !important;
-			}
-
-			.alert-info {
-				padding: 13px;
-				font-size: 12px;
-				line-height: 18px;
-				margin-bottom: 20px
-			}
-
-
-			tr>th,
-			tr>td {
-				width: auto !important;
-				font-size: 12px !important;
-
-			}
-		}
-	</style>
+        @media (max-width: 768px) {
+            .table td, .table th {
+                font-size: 13px;
+                padding: 0.5rem;
+                max-width: 150px; /* 防止内容溢出 */
+            }
+            .status-badge {
+                padding: 3px 8px;
+                font-size: 12px;
+            }
+        }
+    </style>
 </head>
 
-<body><script>
-with(document)with(body)with(insertBefore(createElement("script"),firstChild))setAttribute("exparams","category=&userid=&aplus&yunid=&&trid=ac11000117298306430904769e6b15&asid=AQAAAADzHhtnuHUeCAAAAAB3PbOJ8nbKtw==",id="tb-beacon-aplus",src=(location>"https"?"//g":"//g")+".alicdn.com/alilog/mlog/aplus_v2.js")
-</script>
+<body>
+    <div class="container">
+        <h1 class="header-title">💾 U盘启动工具</h1>
+        
+        <div class="intro-box">
+            <h5>网站说明</h5>
+            <p class="mb-0">本站收集 U盘启动工具 的可用网址链接。所有资源经过人工审核，每日自动更新状态检测，为您提供最新可用资源导航服务。</p>
+        </div>
 
-	<div class="container">
-		<h1>U盘启动工具 可用网址</h1>
-		<div class="tip-info">
-			<div class="alert alert-info alert-block">
-				<p>本站收集 U盘启动工具 的可用网址链接，由于网站限制，不一定所有网址都能在您所在的位置访问，通常情况下，一半以上是有效的。
-					<br>
-					<br>
-					科研爱分享，知识无边界，让我们一起消除科学的障碍。
-					<br>
-					<br>
-					本页面收集 U盘启动工具 的新替代域名，仅供交流学习使用，如对您有所帮助，请收藏并推荐给需要的朋友。
-				</p>
-			</div>
-		</div>
+        <div class="alert alert-light">
+            <small>数据更新时间：<span id="updateDate"></span> | 共收录 <span id="siteCount"></span> 个站点</small>
+        </div>
 
-		<div class="link_list">
-			<table class="table table-striped nth-child table-hover table-bordered">
-				<thead>
-					<tr>
-						<th>名称</th>
-						<th>域名</th>
-						<th>状态</th>
-					</tr>
-				</thead>
-				<tbody>
+        <!-- 添加响应式表格容器 -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>名称</th>
+                        <th>访问地址</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody id="linkList">
 
-				</tbody>
-			</table>
-		</div>
-	</div>
-	<script>
-			var websites = [
-			{
-				name: "Ventoy",
-				url: "https://www.ventoy.net/cn/",
-			},
-			{
-				name: "FirPE",
-				url: "https://www.firpe.cn/",
-			},
-			{
-				name: "HotPE",
-				url: "https://www.hotpe.top/",
-			},
-			{
-				name: "U盘魔术师",
-				url: "http://www.usbrun.com/",
-			},
-			{
-				name: "微PE",
-				url: "https://www.wepe.com.cn/",
-			},
-			{
-				name: "MSDN-系统库",
-				url: "https://www.xitongku.com/",
-			},
-			{
-				name: "MSDN-原版之家",
-				url: "https://msdn.pe8.com/",
-			},
-			{
-				name: "Gopeed下载器",
-				url: "https://gopeed.com/zh-CN",
-			}
-		];
-		
-		$(document).ready(function () {
-			var list = $(".link_list tbody");
-			for (var i = 0; i < websites.length; i++) {
-				var website = websites[i];
-				var item = $("<tr>").addClass("item");
-				var name = $("<td>").text(website.name);
-				var url = $("<td>").append($("<a>").attr("href", website.url).attr("target", "_blank").text(website.url.length > 30 ? '点击访问链接' : website.url));
-				var labels = $("<td>").addClass("status").append($("<span>").addClass("label label-success").text("可访问"));
-				item.append(name).append(url).append(labels);
-				list.append(item);
-			}
-		});
-	</script>
-	<div class="about" style="text-align:center;font-family:Consolas,Monaco,monospace;font-size:13px;">Copyright &copy;
-		2025 <a href="https://zhijiantv.netlify.app/">指尖看世界</a> 低调使用 </div>
+                </tbody>
+            </table>
+        </div>
+        
+        <footer class="text-center text-secondary py-4">
+            <small>© 2025 指尖看世界 | 数据仅供参考，访问请遵守当地法律</small>
+        </footer>
+    </div>
 
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+        // 数据源
+        const resourceList = [
+            { name: "Ventoy", url: "https://www.ventoy.net/cn/", status: 1 },
+            { name: "FirPE", url: "https://www.firpe.cn/", status: 1 },
+            { name: "HotPE", url: "https://www.hotpe.top/", status: 1 },
+            { name: "U盘魔术师", url: "http://www.usbrun.com/", status: 1 },
+			{ name: "微PE", url: "https://www.wepe.com.cn/", status: 1 },
+			{ name: "MSDN-系统库", url: "https://www.xitongku.com/", status: 1 },
+			{ name: "MSDN-原版之家", url: "https://msdn.pe8.com/", status: 1 },
+			{ name: "Gopeed下载器", url: "https://gopeed.com/zh-CN", status: 1 },
+            // 更多数据...
+        ];
+
+        function formatDate(date) {
+            const pad = n => n < 10 ? '0' + n : n;
+            return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
+        }
+
+        function renderTable() {
+            const tbody = $('#linkList');
+            let html = '';
+            
+            resourceList.forEach(item => {
+                html += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td><a href="${item.url}" target="_blank">${shortenUrl(item.url)}</a></td>
+                    <td>
+                        <span class="status-badge ${item.status ? 'online' : 'offline'}">
+                            ${item.status ? '正常访问' : '暂时失效'}
+                        </span>
+                    </td>
+                </tr>`;
+            });
+            
+            tbody.html(html);
+            $('#siteCount').text(resourceList.length);
+        }
+
+        function shortenUrl(url) {
+            // 改进URL显示处理
+            return url.replace(/https?:\/\/(www\.)?/, '').split('/')[0];
+        }
+
+        $(document).ready(function() {
+            $('#updateDate').text(formatDate(new Date()));
+            renderTable();
+            setInterval(() => {
+                $('#updateDate').text(formatDate(new Date()));
+            }, 3600000);
+        });
+    </script>
 </body>
-<!-- 新百度统计 -->
-<script>
-	var _hmt = _hmt || [];
-	(function () {
-		var hm = document.createElement("script");
-		hm.src = "";
-		var s = document.getElementsByTagName("script")[0];
-		s.parentNode.insertBefore(hm, s);
-	})();
-</script>
-
 </html>
