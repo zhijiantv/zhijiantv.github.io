@@ -26,6 +26,21 @@
         }
         .online { background: #e8f5e9; color: #2e7d32; }
         .offline { background: #ffebee; color: #c62828; }
+       /* 新增链接颜色样式 */
+        .table a {
+            color: #1a0dab; /* 深蓝色 */
+            text-decoration: none;
+        }
+        .table a:hover {
+            text-decoration: underline;
+        }
+        /* 斑马纹表格 */
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa; /* 浅灰色 */
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: white; /* 白色 */
+        }	    
         /* 新增介绍模块样式 */
         .intro-box {
             background: #f8f9fa;
@@ -60,7 +75,7 @@
                 <tr>
                     <th style="width:30%">名称</th>
                     <th>访问地址</th>
-                    <th style="width:15%">状态</th>
+                    <th style="width:20%">状态</th>
                 </tr>
             </thead>
             <tbody id="linkList"></tbody>
