@@ -6,56 +6,24 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>小说资源 - 指尖看世界</title>
 	<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">	
-    <!-- Bootstrap 核心样式 -->
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
         .container {
             max-width: 800px;
             margin-top: 30px;
-        }		
-		
+        }
         .header-title {
             color: #2c3e50;
             margin: 20px 0;
             font-weight: 500;
         }
         .status-badge {
-            padding: 3px 10px;
-            border-radius: 3px;
-            font-size: 12px;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 13px;
         }
-
-		tr>th:nth-child(1) {
-			width: 18%;
-		}
-
-		tr>th:nth-child(3) {
-			width: 18%;
-		}
-
-		tr>td:nth-child(1) {
-
-			letter-spacing: 0.5px;
-		}
-	    
         .online { background: #e8f5e9; color: #2e7d32; }
         .offline { background: #ffebee; color: #c62828; }
-       /* 新增链接颜色样式 */
-        .table a {
-            color: #1a0dab; /* 深蓝色 */
-            text-decoration: none;
-        }
-        .table a:hover {
-            text-decoration: underline;
-        }
-        /* 斑马纹表格 */
-        .table tbody tr:nth-child(even) {
-            background-color: #f8f9fa; /* 浅灰色 */
-        }
-        .table tbody tr:nth-child(odd) {
-            background-color: white; /* 白色 */
-        }	    
-        /* 新增介绍模块样式 */
         .intro-box {
             background: #f8f9fa;
             border: 1px solid #dee2e6;
@@ -63,15 +31,39 @@
             padding: 15px;
             margin-bottom: 20px;
         }
-        @media (max-width: 768px) {
-			tr>th,
-			tr>td {
-				width: auto !important;
-				font-size: 12px !important;
-
-			}		
+        
+        /* 新增修改1：URL字体颜色 */
+        .table a {
+            color: #007bff !important;
+            text-decoration: underline;
         }
- 
+
+        /* 斑马纹表格 */
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa; /* 浅灰色 */
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: white; /* 白色 */
+        }
+        /* 新增修改2：移动端表格响应式处理 */
+        .table-responsive { overflow-x: auto; }
+        .table td, .table th {
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        @media (max-width: 768px) {
+            .table td, .table th {
+                font-size: 13px;
+                padding: 0.5rem;
+                max-width: 150px; /* 防止内容溢出 */
+            }
+            .status-badge {
+                padding: 3px 8px;
+                font-size: 12px;
+            }
+        }
     </style>
 </head>
 
@@ -79,37 +71,39 @@
     <div class="container">
         <h1 class="header-title">📚 小说资源收集</h1>
         
-        <!-- 新增介绍模块 -->
         <div class="intro-box">
             <h5>网站说明</h5>
             <p class="mb-0">本站专注收录优质小说资源。所有资源经过人工审核，每日自动更新状态检测，为您提供最新可用资源导航服务。</p>
         </div>
 
-        <!-- 动态统计信息 -->
         <div class="alert alert-light">
             <small>数据更新时间：<span id="updateDate"></span> | 共收录 <span id="siteCount"></span> 个站点</small>
         </div>
 
-        <table class="table table-hover table-bordered">
-            <thead class="thead-light">
-                <tr>
-                    <th style="width:30%">名称</th>
-                    <th>访问地址</th>
-                    <th style="width:20%">状态</th>
-                </tr>
-            </thead>
-            <tbody id="linkList"></tbody>
-        </table>
+        <!-- 添加响应式表格容器 -->
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>名称</th>
+                        <th>访问地址</th>
+                        <th>状态</th>
+                    </tr>
+                </thead>
+                <tbody id="linkList">
+
+                </tbody>
+            </table>
+        </div>
         
         <footer class="text-center text-secondary py-4">
             <small>© 2025 指尖看世界 | 数据仅供参考，访问请遵守当地法律</small>
         </footer>
     </div>
 
-    <!-- JavaScript 动态加载 -->
     <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        // 数据源（可替换为你的数据）
+        // 数据源
         const resourceList = [
             { name: "大灰狼书源发布页", url: "https://dashabi.tk/", status: 1 },
             { name: "晴天书源发布页", url: "http://www.qingtian618.cn/", status: 1 },
@@ -120,13 +114,11 @@
             // 更多数据...
         ];
 
-        // 日期格式化函数 
         function formatDate(date) {
             const pad = n => n < 10 ? '0' + n : n;
             return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
         }
 
-        // 生成表格函数
         function renderTable() {
             const tbody = $('#linkList');
             let html = '';
@@ -135,7 +127,7 @@
                 html += `
                 <tr>
                     <td>${item.name}</td>
-                    <td><a href="${item.url}" target="_blank" class="text-dark">${shortenUrl(item.url)}</a></td>
+                    <td><a href="${item.url}" target="_blank">${shortenUrl(item.url)}</a></td>
                     <td>
                         <span class="status-badge ${item.status ? 'online' : 'offline'}">
                             ${item.status ? '正常访问' : '暂时失效'}
@@ -145,21 +137,17 @@
             });
             
             tbody.html(html);
-            $('#siteCount').text(resourceList.length); // 动态更新数量
+            $('#siteCount').text(resourceList.length);
         }
 
-        // 简化URL显示
         function shortenUrl(url) {
-            return url.replace(/https?:\/\/(www\.)?/, '');
+            // 改进URL显示处理
+            return url.replace(/https?:\/\/(www\.)?/, '').split('/')[0];
         }
 
-        // 初始化页面 
         $(document).ready(function() {
-            // 设置更新时间
             $('#updateDate').text(formatDate(new Date()));
-            // 初始化表格
             renderTable();
-            // 定时更新（每小时更新日期）
             setInterval(() => {
                 $('#updateDate').text(formatDate(new Date()));
             }, 3600000);
