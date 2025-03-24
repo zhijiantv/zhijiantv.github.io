@@ -1,0 +1,238 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+	<meta name="description" content="最优网址收集阅读接口网站导航，并自动检测和更新可以访问的阅读接口网站网址。">
+	<meta name="viewport"
+		content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+	<title>阅读接口 - 指尖看世界</title>
+	<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">
+	<link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
+	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: #f5f7ff;
+            font-family: "Microsoft Yahei", sans-serif;
+        }
+
+        .header {
+            width: 50%;
+            max-width: 800px;
+            margin: 30px 0;
+            text-align: center;
+        }
+
+        .title {
+            color: #333;
+            font-size: 26px;
+            margin-bottom: 15px;
+            text-align: left;			
+        }
+
+        .description {
+            background: #e6f7ff;
+            color: #1890ff;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.5;
+            text-align: left;	
+			font-size: 12px;			
+        }
+
+        .table-container {
+            width: 50%;
+            max-width: 800px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            table-layout: fixed;
+        }
+
+        th, td {
+            padding: 12px;
+            border: 1px solid #ebedf0;
+            text-align: left;
+        }
+
+        th {
+            background: #f8f9fa;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .name-col {
+            width: 40%;
+            min-width: 100px;
+        }
+
+        .link-col {
+            width: 30%;
+            position: relative;
+        }
+
+        .link-text {
+            display: none; /* 隐藏真实链接 */
+        }
+
+        .copy-tip {
+            color: #1890ff;
+            font-style: italic;
+        }
+
+        .action-col {
+            width: 40%;
+            text-align: center;
+        }
+
+        .copy-btn {
+            padding: 8px 20px;
+            background: #52c41a;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .copy-btn.copied {
+            background: #1890ff;
+        }
+
+        @media (max-width: 768px) {
+            .header, .table-container {
+                width: 95%;
+            }
+
+            th, td {
+                padding: 10px;
+                font-size: 14px;
+            }
+
+            .title {
+			    margin: 20px 0 10px 0;
+			    font-size: 24px;
+            }
+
+            .copy-btn {
+                padding: 6px 15px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .name-col {
+                width: 30%;
+            }
+            
+            .link-col {
+                width: 50%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1 class="title">小说阅读接口</h1>
+        <div class="description">
+               本站收集 小说阅读接口 的可用网址链接，由于网站限制，不一定所有网址都能在您所在的位置访问，通常情况下，一半以上是有效的。
+			<br>
+			<br>
+               科研爱分享，知识无边界，让我们一起消除科学的障碍。
+			<br>
+			<br>
+			   本页面收集 小说阅读接口 的新替代域名，仅供交流学习使用，如对您有所帮助，请收藏并推荐给需要的朋友。
+			
+        </div>
+    </div>
+
+    <div class="table-container">
+        <table>
+            <thead>
+                <tr>
+                    <th class="name-col">名称</th>
+                    <th class="link-col">链接</th>
+                    <th class="action-col">操作</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td class="name-col">阅读书源融合</td>
+                    <td class="link-col">
+                        <span class="link-text" data-link="https://www.123865.com/s/pTqA-DeGsA"></span>
+                        <span class="copy-tip">250324更新</span>
+                    </td>
+                    <td class="action-col">
+                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name-col">大灰狼融合</td>
+                    <td class="link-col">
+                        <span class="link-text" data-link="https://www.123865.com/s/pTqA-reGsA"></span>
+                        <span class="copy-tip">融合2.0</span>
+                    </td>
+                    <td class="action-col">
+                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
+                    </td>
+                </tr>
+                <tr>
+                    <td class="name-col">晴天融合</td>
+                    <td class="link-col">
+                        <span class="link-text" data-link="https://www.123865.com/s/pTqA-8eGsA"></span>
+                        <span class="copy-tip">融合2.1</span>
+                    </td>
+                    <td class="action-col">
+                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
+                    </td>
+                </tr>				
+                <tr>
+                    <td class="name-col">书山融合</td>
+                    <td class="link-col">
+                        <span class="link-text" data-link="https://www.123865.com/s/pTqA-0eGsA"></span>
+                        <span class="copy-tip">融合2.0</span>
+                    </td>
+                    <td class="action-col">
+                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
+                    </td>
+                </tr>				
+ 
+		
+            </tbody>
+        </table>
+    </div>
+
+    <script>
+        function copyLink(btn) {
+            const link = btn.closest('tr').querySelector('.link-text').dataset.link;
+            navigator.clipboard.writeText(link)
+                .then(() => {
+                    btn.classList.add('copied');
+                    btn.textContent = '已复制!';
+                    setTimeout(() => {
+                        btn.classList.remove('copied');
+                        btn.textContent = '立即复制';
+                    }, 2000);
+                })
+                .catch(err => {
+                    btn.textContent = '复制失败';
+                    setTimeout(() => {
+                        btn.textContent = '立即复制';
+                    }, 1500);
+                });
+        }
+    </script>
+		<div class="about" style="text-align:center;font-family:Consolas,Monaco,monospace;font-size:13px;">Copyright &copy;
+		2025 <a href="https://zhijiantv.netlify.app/">指尖看世界</a> 低调使用 
+		</div>		
+</body>
+</html>
