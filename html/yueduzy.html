@@ -34,7 +34,13 @@
             color: #007bff !important;
             text-decoration: underline;
         }
-
+        /* 斑马纹表格 */
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa; /* 浅灰色 */
+        }
+        .table tbody tr:nth-child(odd) {
+            background-color: white; /* 白色 */
+        }
         /* 移动端适配 */
         @media (max-width: 768px) {
             .container {
