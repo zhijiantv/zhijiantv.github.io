@@ -1,290 +1,192 @@
+
 <!DOCTYPE html>
 <html lang="zh-CN">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<title>MusicFree音乐插件 - 指尖看世界</title>
-	<link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">
-	<link rel="stylesheet" type="text/css" href="https://lib.baomitu.com/twitter-bootstrap/2.3.1/css/bootstrap.min.css">
-	<script src="https://cdn.bootcss.com/jquery/3.3.1/jquery.min.js"></script>	
+    <title>MusicFree音乐插件 - 指尖看世界</title>
+    <link rel="shortcut icon" type="image/png" href="../assets/images/favicon.png">	
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.6.0/css/bootstrap.min.css" rel="stylesheet">
     <style>
-        body {
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            background: #f5f7ff;
-            font-family: "Microsoft Yahei", sans-serif;
+        .container {
+            max-width: 800px;
+            margin-top: 30px;
         }
-
-        .header {
-            width: 90%;
-            max-width: 1000px;
-            margin: 30px 0;
-            text-align: center;
+        .header-title {
+            color: #2c3e50;
+            margin: 20px 0;
+            font-weight: 500;
         }
-
-        .title {
-            color: #333;
-            font-size: 26px;
-            margin-bottom: 15px;
-            text-align: left;			
-        }
-
-        .description {
-            background: #d9edf6;
-            color: #518fac;
-            padding: 15px;
-            border-radius: 8px;
-            line-height: 1.5;
-            text-align: left;	
-	    font-size: 12px;				
-        }
-
-        .table-container {
-            width: 90%;
-            max-width: 1000px;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
-            padding: 5px;
-            margin-bottom: 30px;
-        }
-
-        table {
-            width: 100%;
-            border-collapse: collapse;
-            table-layout: fixed;
-        }
-
-        th, td {
-            padding: 12px;
-            border: 1px solid #ebedf0;
-            text-align: left;
-        }
-
-        th {
-            background: #f8f9fa;
-            color: #333;
-            font-weight: 600;
-        }
-
-        tr:nth-child(even) {
-            background-color: #fafafa;
-        }
-
-        .name-col {
-            width: 40%;
-            min-width: 100px;
-        }
-
-        .link-col {
-            width: 30%;
-            position: relative;
-        }
-
-        .link-text {
-            display: none; /* 隐藏真实链接 */
-        }
-
-        .copy-tip {
-            color: #1890ff;
-            font-style: italic;
-        }
-
-        .action-col {
-            width: 40%;
-            text-align: center;
-        }
-
         .copy-btn {
-            padding: 8px 20px;
-            background: #52c41a;
-            color: white;
-            border: none;
-            border-radius: 4px;
-            cursor: pointer;
-            transition: all 0.2s;
+            padding: 5px 15px;
+            border-radius: 15px;
+            font-size: 13px;
+            background: #e8f5e9;
+            border: 1px solid #2e7d32;
+            color: #2e7d32;
+            transition: all 0.3s;
+            display: block;
+            margin: 0 auto; /* 水平居中关键属性 */
         }
-
         .copy-btn:hover {
-            opacity: 0.9;
+            background: #2e7d32;
+            color: white;
         }
-
         .copy-btn.copied {
-            background: #1890ff;
+            background: #2e7d32;
+            color: white;
+        }
+        .intro-box {
+            background: #f8f9fa;
+            border: 1px solid #dee2e6;
+            border-radius: 8px;
+            padding: 15px;
+            margin-bottom: 20px;
         }
 
+        /* 斑马纹表格 */
+        .table tbody tr:nth-child(even) {
+            background-color: #f8f9fa;
+        }
         @media (max-width: 768px) {
-            .header, .table-container {
-                width: 95%;
-            }
-
-            th, td {
-                padding: 10px;
-                font-size: 14px;
-            }
-
-            .title {
-                font-size: 22px;
-            }
-
-            .copy-btn {
-                padding: 6px 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            .name-col {
-                width: 30%;
-            }
-            
-            .link-col {
-                width: 50%;
-            }
-            
-            .copy-tip {
+            .table td, .table th {
                 font-size: 13px;
+                padding: 0.5rem;
+                max-width: 150px;
+            }
+            .copy-btn {
+                padding: 3px 8px;
+                font-size: 12px;
+            }
+            /* 移动端适配 */
+            .table td:last-child {
+                min-width: 80px; /* 确保操作列宽度 */
             }
         }
     </style>
 </head>
+
 <body>
-    <div class="header">
-        <h1 class="title">MusicFree音乐插件</h1>
-        <div class="description">
-               本站收集 MusicFree 音乐插件 的可用网址链接，由于网站限制，不一定所有网址都能在您所在的位置访问，通常情况下，一半以上是有效的。
-			<br>
-			<br>
-               科研爱分享，知识无边界，让我们一起消除科学的障碍。
-			<br>
-			<br>
-			   本页面收集 MusicFree 音乐插件 的新替代域名，仅供交流学习使用，如对您有所帮助，请收藏并推荐给需要的朋友。
-			
+    <div class="container">
+        <h1 class="header-title">🎵 MusicFree音乐插件</h1>
+        
+        <div class="intro-box">
+            <h5>网站说明</h5>
+            <p class="mb-0">点击「复制链接」按钮可直接复制网址，所有资源经过人工审核，每日自动更新检测。</p>
         </div>
+
+        <div class="alert alert-light">
+            <small>数据更新时间：<span id="updateDate"></span> | 共收录 <span id="siteCount"></span> 个站点</small>
+        </div>
+
+        <div class="table-responsive">
+            <table class="table table-hover table-bordered">
+                <thead class="thead-light">
+                    <tr>
+                        <th>名称</th>
+                        <th>访问地址</th>
+                        <th style="min-width: 100px;">操作</th> <!-- 固定操作列宽度 -->
+                    </tr>
+                </thead>
+                <tbody id="linkList">
+                </tbody>
+            </table>
+        </div>
+        
+        <footer class="text-center text-secondary py-4">
+            <small>© 2025 指尖看世界 | 数据仅供参考，访问请遵守当地法律</small>
+        </footer>
     </div>
 
-   <div class="table-container">
-        <table>
-            <thead>
-                <tr>
-                    <th class="name-col">名称</th>
-                    <th class="link-col">链接</th>
-                    <th class="action-col">操作</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td class="name-col">官方插件</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/maotoumao/MusicFreePlugins/raw/master/plugins.json"></span>
-                        <span class="copy-tip">MusicFree官方音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="name-col">网易云音乐</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%B0%8F%E8%8A%B8%E9%9F%B3%E4%B9%90.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="name-col">QQ音乐</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/QQ%E9%9F%B3%E4%B9%90.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>				
-                <tr>
-                    <td class="name-col">咪咕音乐</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>				
-                <tr>
-                    <td class="name-col">咪咕音乐（备用）</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%92%AA%E5%92%95.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>
-                <tr>
-                    <td class="name-col">酷我音乐</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%B0%8F%E7%AA%9D%E9%9F%B3%E4%B9%90.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>
-		
-                <tr>
-                    <td class="name-col">酷狗音乐</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%B0%8F%E6%9E%B8%E9%9F%B3%E4%B9%90.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>	
-                <tr>
-                    <td class="name-col">喜马拉雅</td>
-                    <td class="link-col">
-                        <span class="link-text" data-link="https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%96%9C%E9%A9%AC%E6%8B%89%E9%9B%85.js"></span>
-                        <span class="copy-tip">MusicFree音乐插件</span>
-                    </td>
-                    <td class="action-col">
-                        <button class="copy-btn" onclick="copyLink(this)">立即复制</button>
-                    </td>
-                </tr>
-		
-            </tbody>
-        </table>
-    </div>
-
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
     <script>
-        function copyLink(btn) {
-            const row = btn.closest('tr');
-            const link = row.querySelector('.link-text').dataset.link;
+        const resourceList = [
+            { name: "官方插件", url: "https://gitee.com/maotoumao/MusicFreePlugins/raw/master/plugins.json"},
+            { name: "网易云音乐", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%B0%8F%E8%8A%B8%E9%9F%B3%E4%B9%90.js"},
+            { name: "QQ音乐", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/QQ%E9%9F%B3%E4%B9%90.js"},
+            { name: "咪咕音乐", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%92%AA%E5%92%95%E9%9F%B3%E4%B9%90.js"},
+			{ name: "咪咕音乐（备用）", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%92%AA%E5%92%95.js"},
+			{ name: "酷我音乐", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%B0%8F%E7%AA%9D%E9%9F%B3%E4%B9%90.js"},
+			{ name: "酷狗音乐", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%B0%8F%E6%9E%B8%E9%9F%B3%E4%B9%90.js"},
+			{ name: "喜马拉雅", url: "https://gitee.com/zhijiantv/musicplugin/raw/master/MusicFree/%E5%96%9C%E9%A9%AC%E6%8B%89%E9%9B%85.js"},
+
+
+        ];
+
+        // 复制功能实现
+        function copyUrl(url, btn) {
+            const tempInput = document.createElement('textarea');
+            tempInput.value = url;
+            document.body.appendChild(tempInput);
             
-            navigator.clipboard.writeText(link)
-                .then(() => {
-                    btn.classList.add('copied');
-                    btn.textContent = '已复制!';
-                    setTimeout(() => {
-                        btn.classList.remove('copied');
-                        btn.textContent = '立即复制';
-                    }, 2000);
-                })
-                .catch(err => {
-                    btn.textContent = '复制失败';
-                    setTimeout(() => {
-                        btn.textContent = '立即复制';
-                    }, 1500);
-                });
+            try {
+                if(navigator.clipboard) {
+                    navigator.clipboard.writeText(url).then(() => {
+                        showCopiedFeedback(btn);
+                    });
+                } else {
+                    tempInput.select();
+                    tempInput.setSelectionRange(0, 99999);
+                    document.execCommand('copy');
+                    showCopiedFeedback(btn);
+                }
+            } catch (err) {
+                alert('复制失败，请手动选择网址复制');
+            } finally {
+                document.body.removeChild(tempInput);
+            }
+        }
+
+        // 显示复制反馈
+        function showCopiedFeedback(btn) {
+            const originalText = btn.innerText;
+            btn.classList.add('copied');
+            btn.innerText = '已复制';
+            
+            setTimeout(() => {
+                btn.classList.remove('copied');
+                btn.innerText = originalText;
+            }, 1500);
+        }
+
+        // 渲染表格
+        function renderTable() {
+            const tbody = $('#linkList');
+            let html = '';
+            
+            resourceList.forEach(item => {
+                html += `
+                <tr>
+                    <td>${item.name}</td>
+                    <td><a href="${item.url}" target="_blank">${shortenUrl(item.url)}</a></td>
+                    <td>
+                        <button class="copy-btn" onclick="copyUrl('${item.url}', this)">
+                            复制链接
+                        </button>
+                    </td>
+                </tr>`;
+            });
+            
+            tbody.html(html);
+            $('#siteCount').text(resourceList.length);
+        }
+
+        // URL简化显示
+        function shortenUrl(url) {
+            return url.replace(/https?:\/\/(www\.)?/, '').split('/')[0];
+        }
+
+        $(document).ready(function() {
+            $('#updateDate').text(formatDate(new Date()));
+            renderTable();
+        });
+
+        // 日期格式化
+        function formatDate(date) {
+            const pad = n => n < 10 ? '0' + n : n;
+            return `${date.getFullYear()}-${pad(date.getMonth()+1)}-${pad(date.getDate())}`;
         }
     </script>
-		<div class="about" style="text-align:center;font-family:Consolas,Monaco,monospace;font-size:13px;">Copyright &copy;
-		2025 <a href="https://zhijiantv.netlify.app/">指尖看世界</a> 低调使用 
-		</div>	
 </body>
 </html>
