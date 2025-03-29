@@ -126,7 +126,7 @@
 
             <!-- 版本信息 -->
             <div class="version-info" style="border: 2px solid #666; max-width: 800px; margin: 20px auto;">
-                <div class="row" style="margin: 0;">
+                <div class="row" style="margin: 0;" data-bs-toggle="modal" data-bs-target="#rowModal">
                     <div class="col-6" style="padding: 15px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;">
                         <h6 style="font-weight: bold;">🔥影界_手机版</h6>
                         <p>魔改：FM影视</p>
@@ -179,7 +179,7 @@
 
             <!-- 版本信息 -->
             <div class="version-info" style="border: 2px solid #666; max-width: 800px; margin: 20px auto;">
-                <div class="row" style="margin: 0;">
+                <div class="row" style="margin: 0;" data-bs-toggle="modal" data-bs-target="#rowModal">
                     <div class="col-6" style="padding: 15px; border-right: 1px solid #ddd; border-bottom: 1px solid #ddd;">
                         <h6 style="font-weight: bold;">🔥影界_手机版</h6>
                         <p>魔改：FongMi影视</p>
@@ -234,6 +234,58 @@
     </div>
 </div>
 
+<!-- 多个版本介绍  -->
+<div class="modal fade" id="rowModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title">版本介绍</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+            </div>
+            <div class="modal-body changelog-list">
+
+                <div class="mb-4">
+                    <h6>影界_手机版</h6>
+                    <ul>
+                        <li>魔改：FongMi影视</li>
+						<li>推荐使用</li>
+                    </ul>
+                </div>
+                
+                <div class="mb-4">
+                    <h6>影界_OK手机版</h6>
+                    <ul>
+                        <li>魔改：OK影视</li>
+						<li>OK影视：基于FongMi影视开发</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h6>影界TV_LP_白盒</h6>
+                    <ul>
+                        <li>适用于低性能，低版本电视</li>
+                        <li>兼容性比较强，推荐使用</li>
+                    </ul>
+                </div>
+                <div class="mb-4">
+                    <h6>影界TV_HP_黑盒</h6>
+                    <ul>
+                        <li>适用于高性能，高版本电视</li>
+                        <li>比较美观，可玩性比较多</li>
+                    </ul>
+                </div>	
+                <div class="mb-4">
+                    <h6>横牫说明</h6>
+                    <ul>
+                        <li>手机版包名相同</li>
+                        <li>TV版包名相同</li>
+						<li>相互不可共存</li>
+						<li>选择其中一款下载使用</li>
+                    </ul>
+                </div>				
+            </div>
+        </div>
+    </div>	
+</div>
 <!-- 更新日志弹窗  -->
 <div class="modal fade" id="changelogModal">
     <div class="modal-dialog modal-dialog-centered">
