@@ -8006,6 +8006,173 @@ figure.highlight .code-expand-btn:not(.expand-done) ~ pre {
   overflow: hidden;
   height: 200px;
 }
+.search-dialog {
+  position: fixed;
+  top: 5rem;
+  left: 50%;
+  z-index: 1001;
+  display: none;
+  margin-left: -15rem;
+  padding: 1rem;
+  width: 30rem;
+  box-shadow: var(--efu-shadow-lightblack);
+  background: var(--efu-card-bg);
+  border: var(--style-border);
+  transition: 0.3s;
+  border-radius: 8px;
+  animation: slide-in 0.6s ease 0s 1 normal none running;
+  gap: 16px;
+  flex-direction: column;
+}
+.search-dialog:hover {
+  border: var(--style-border-hover);
+  box-shadow: var(--efu-shadow-theme);
+}
+@media screen and (max-width: 768px) {
+  .search-dialog:hover {
+    border: none;
+  }
+}
+@media screen and (max-width: 768px) {
+  .search-dialog {
+    top: 0;
+    left: 0;
+    margin: 0;
+    width: 100%;
+    height: 100%;
+    border: 0;
+  }
+}
+.search-dialog .search-dialog-title {
+  font-weight: 700;
+  color: var(--efu-main);
+  font-size: 1.4em;
+  line-height: 1;
+}
+.search-dialog .search-close-button {
+  color: var(--efu-gray);
+  font-size: 1.4em;
+  line-height: 1;
+  cursor: pointer;
+  transition: color 0.2s ease-in-out 0s;
+}
+.search-dialog .search-close-button:hover {
+  color: var(--efu-main);
+}
+.search-dialog #search-results {
+  max-height: calc(80vh - 130px);
+  overflow-y: auto;
+  margin-top: 8px;
+}
+.search-dialog #search-results .search-result-item {
+  padding-left: 0;
+  font-weight: 700;
+}
+.search-dialog #search-results .search-result-item .search-result-title {
+  position: relative;
+  transition: color 0.2s ease-in-out 0s;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  display: block;
+}
+.search-dialog #search-results .search-result-item .search-result-title:hover {
+  color: var(--efu-hovertext);
+}
+.search-dialog #search-results .search-result-item .search-result-title em {
+  color: var(--efu-theme);
+  font-style: normal;
+}
+@media screen and (max-width: 768px) {
+  .search-dialog #search-results {
+    max-height: 80vh !important;
+  }
+}
+.search-dialog #search-pagination .pagination-list {
+  padding: 0;
+  text-align: center;
+}
+.search-dialog #search-pagination .pagination-list .pagination-item {
+  color: var(--efu-fontcolor);
+  display: inline-block;
+  min-width: 1.2rem;
+  height: 1.2rem;
+  text-align: center;
+  line-height: 1.2rem;
+  cursor: pointer;
+}
+.search-dialog #search-pagination .pagination-list .pagination-item:hover {
+  color: var(--efu-main);
+}
+.search-dialog #search-pagination .pagination-list .pagination-item.select {
+  border-radius: 4px;
+  background: var(--efu-main);
+  color: var(--efu-white);
+  cursor: default;
+}
+.search-dialog #search-pagination .pagination-list .pagination-item.select:hover {
+  color: var(--efu-white);
+}
+.search-dialog #search-tips {
+  color: var(--efu-secondtext);
+  right: 0;
+  margin: auto;
+}
+.search-dialog #search-tips .search-result-count {
+  color: var(--efu-gray);
+  font-size: 12px;
+}
+.search-dialog #search-tips .search-result-count b {
+  color: var(--efu-main);
+}
+.search-dialog .search-box {
+  position: relative;
+  margin: 0 auto;
+  max-width: 100%;
+  width: 100%;
+}
+.search-dialog .search-box input {
+  height: 100%;
+  width: 100%;
+  border-radius: 8px;
+  border: var(--style-border);
+  padding: 0.25rem 0.7rem;
+  outline: 0;
+  background: var(--efu-secondbg);
+  color: var(--efu-fontcolor);
+  caret-color: var(--efu-theme);
+}
+.search-dialog .search-box input::placeholder {
+  color: var(--efu-gray);
+  opacity: 0.8;
+}
+#search-mask {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  display: none;
+  background: rgba(0,0,0,0.6);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  transform: translateZ(0);
+  background: var(--efu-maskbgdeep);
+}
+#search-hits .tag-list {
+  padding: 4px 8px;
+  border-radius: 8px;
+  margin-right: 0.5rem;
+  margin-top: 0.5rem;
+  border: var(--style-border-always);
+}
+#search-hits .tag-list:hover {
+  background: var(--efu-main);
+  color: var(--efu-white);
+}
+.search-nav {
+  display: flex;
+  justify-content: space-between;
+  align-content: center;
+}
 .article-container figure.gallery-group {
   position: relative;
   overflow: hidden;
